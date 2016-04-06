@@ -106,7 +106,6 @@ class DZMAdaptive: NSObject {
                 adaptiveSubX = CGRectGetMaxX(adaptiveSubRect) + subSpaceW
                 lastFrame = adaptiveSubRect
                 
-                
                 // 存储
                 frames.append(adaptiveSubRect)
             }

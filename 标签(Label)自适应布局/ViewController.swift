@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // 初始化 字符串数组
-        let labels = ["爱好","1","标签", "222","ASDC","asd","a","&^^%","测试","asdkjhaskdjlkas","卡视角的"]
+        let labels = ["爱好","1","标签", "222","ASDC","asd","a","&^^%","测试","asdkjhaskdjlkas","这种情况计算出来的宽度是正确的  但是赋值text 却是直接给这个label 的 所以如果有文字超过一行的宽度的情况可以用DZMAdaptive 来计算外部view的宽度 然后包装一个 adaptive.subInset 四周间距的label"]
         
         // 获取自适应对象
         let adaptive = setupAdaptive(labels)
@@ -25,6 +25,8 @@ class ViewController: UIViewController {
         for i in 0 ..< labels.count {
             
             let label = UILabel()
+            
+            label.numberOfLines = 0
             
             // 字体注意跟计算的时候使用一样
             label.font = UIFont.systemFontOfSize(20)
