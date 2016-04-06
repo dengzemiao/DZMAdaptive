@@ -25,6 +25,7 @@ class ViewController: UIViewController {
         for i in 0 ..< labels.count {
             
             let label = UILabel()
+            
             // 字体注意跟计算的时候使用一样
             label.font = UIFont.systemFontOfSize(20)
             
@@ -64,8 +65,8 @@ class ViewController: UIViewController {
         adaptive.subInset = UIEdgeInsetsMake(10, 10, 10, 10)
         // 所有子元显示素控件 离父控件四周的间距
         adaptive.inset = UIEdgeInsetsMake(60, 60, 10, 10)
-        // 计算字符串约束 view总宽度 - 距离左右的间距 得到能够显示字体的实际宽度
-        adaptive.constrainedToSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width - adaptive.inset.left - adaptive.inset.right, CGFloat.max)
+        // 计算字符串约束 （view总宽度 - 距离左右的间距 - 子元素控件内部左右间距 = 得到能够显示字体的实际宽度)
+        adaptive.constrainedToSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width - adaptive.inset.left - adaptive.inset.right - adaptive.subInset.left - adaptive.subInset.right , CGFloat.max)
         // 开始计算
         adaptive.startAdaptive()
         
