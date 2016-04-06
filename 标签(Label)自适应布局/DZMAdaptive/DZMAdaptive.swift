@@ -74,6 +74,9 @@ class DZMAdaptive: NSObject {
             var adaptiveSubX = inset.left
             var adaptiveSubY = inset.top
             
+            // lastFrame
+            var lastFrame:CGRect = CGRectMake(adaptiveSubX, adaptiveSubY, 0, 0)
+            
             // 遍历计算
             for i in 0 ..< adaptiveArray.count {
                 
@@ -93,14 +96,16 @@ class DZMAdaptive: NSObject {
                 // 检查宽度是否超过最大范围
                 if CGRectGetMaxX(adaptiveSubTempRect) > maxWidth {
                     adaptiveSubX = inset.left
-                    adaptiveSubY = CGRectGetMaxY(adaptiveSubTempRect) + subSpaceH
+                    adaptiveSubY = CGRectGetMaxY(lastFrame) + subSpaceH
                 }
                 
                 // 单个元素frame
                 let adaptiveSubRect = CGRectMake(adaptiveSubX, adaptiveSubY, adaptiveSubW, adaptiveSubH)
                 
-                // 刷新最新X
+                // 刷新最新X lastFrame
                 adaptiveSubX = CGRectGetMaxX(adaptiveSubRect) + subSpaceW
+                lastFrame = adaptiveSubRect
+                
                 
                 // 存储
                 frames.append(adaptiveSubRect)
