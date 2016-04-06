@@ -30,7 +30,7 @@ class ViewController: UIViewController {
             
             label.textAlignment = NSTextAlignment.Center
             
-            // 两个赋值都行
+            // 两种赋值都行
             label.text = adaptive.adaptiveArray[i]
 //            label.text = labels[i]
             
