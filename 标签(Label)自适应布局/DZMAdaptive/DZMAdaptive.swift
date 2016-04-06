@@ -15,6 +15,10 @@ class DZMAdaptive: NSObject {
      富文本计算： 如果需要计算富文本 修改以下：
      1. adaptiveArray 改为AttributedString
      2. startAdaptive() 方法中 计算单个字符串大小 改为 AttributedString 的计算方式即可
+     
+     或者自定义模型计算:
+     1. adaptiveArray 改为模型数组
+     2. startAdaptive() 方法中 计算单个字符串大小 改为 模型计算
      */
     
     
