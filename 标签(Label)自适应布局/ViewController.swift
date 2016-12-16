@@ -29,17 +29,17 @@ class ViewController: UIViewController {
             label.numberOfLines = 0
             
             // 字体注意跟计算的时候使用一样
-            label.font = UIFont.systemFontOfSize(20)
+            label.font = UIFont.systemFont(ofSize: 20)
             
-            label.textAlignment = NSTextAlignment.Center
+            label.textAlignment = NSTextAlignment.center
             
             // 两种赋值都行
             label.text = adaptive.adaptiveArray[i]
 //            label.text = labels[i]
             
-            label.textColor = UIColor.redColor()
+            label.textColor = UIColor.red
             
-            label.layer.borderColor = UIColor.redColor().CGColor
+            label.layer.borderColor = UIColor.red.cgColor
             
             label.layer.borderWidth = 1
             
@@ -50,15 +50,15 @@ class ViewController: UIViewController {
         
     }
     
-    func setupAdaptive(adaptiveArray:[String]) ->DZMAdaptive {
+    func setupAdaptive(_ adaptiveArray:[String]) ->DZMAdaptive {
         
         let adaptive = DZMAdaptive()
         // 字符串label
         adaptive.adaptiveArray = adaptiveArray
         // 跟外面显示控件用的一样字体
-        adaptive.font = UIFont.systemFontOfSize(20)
+        adaptive.font = UIFont.systemFont(ofSize: 20)
         // 这些子元素显示的父控件的最大宽度 放在哪个view上就传哪个宽度
-        adaptive.maxWidth = UIScreen.mainScreen().bounds.size.width
+        adaptive.maxWidth = UIScreen.main.bounds.size.width
         // 子元素之间的中间间距
         adaptive.subSpaceW = 10
         // 子元素之间的上下间距
@@ -68,7 +68,7 @@ class ViewController: UIViewController {
         // 所有子元显示素控件 离父控件四周的间距
         adaptive.inset = UIEdgeInsetsMake(60, 60, 10, 10)
         // 计算字符串约束 （view总宽度 - 距离左右的间距 - 子元素控件内部左右间距 = 得到能够显示字体的实际宽度)
-        adaptive.constrainedToSize = CGSizeMake(UIScreen.mainScreen().bounds.size.width - adaptive.inset.left - adaptive.inset.right - adaptive.subInset.left - adaptive.subInset.right , CGFloat.max)
+        adaptive.constrainedToSize = CGSize(width: UIScreen.main.bounds.size.width - adaptive.inset.left - adaptive.inset.right - adaptive.subInset.left - adaptive.subInset.right , height: CGFloat.greatestFiniteMagnitude)
         // 开始计算
         adaptive.startAdaptive()
         

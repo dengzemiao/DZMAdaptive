@@ -8,6 +8,31 @@
 
 import UIKit
 
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
+
 class DZMAdaptive: NSObject {
     
     /* 说明: (语言版本: swift 2.2 ,支持环境: >=ios7) 先设置好属性  最后调用startAdaptive()方法开始计算  计算之后通过属性获取结果
@@ -34,7 +59,7 @@ class DZMAdaptive: NSObject {
     var font:UIFont!
     
     /// 所有子元素排列的最大范围 宽度,可传父显示控件的宽度,用于局限子元素 (可选) default: CGFloat.max
-    var maxWidth:CGFloat! = CGFloat.max
+    var maxWidth:CGFloat! = CGFloat.greatestFiniteMagnitude
     
     /// 子元素之间的间距宽,中间间距 (可选) default: 0
     var subSpaceW:CGFloat! = 0
@@ -75,7 +100,7 @@ class DZMAdaptive: NSObject {
             var adaptiveSubY = inset.top
             
             // lastFrame
-            var lastFrame:CGRect = CGRectMake(adaptiveSubX, adaptiveSubY, 0, 0)
+            var lastFrame:CGRect = CGRect(x: adaptiveSubX, y: adaptiveSubY, width: 0, height: 0)
             
             // 遍历计算
             for i in 0 ..< adaptiveArray.count {
@@ -84,26 +109,26 @@ class DZMAdaptive: NSObject {
                 let adaptiveStr = adaptiveArray[i]
                 
                 // 计算单个字符串大小
-                let adaptiveStrSize = NSString(string:adaptiveStr).boundingRectWithSize(constrainedToSize, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil).size
+                let adaptiveStrSize = NSString(string:adaptiveStr).boundingRect(with: constrainedToSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil).size
                 
                 // 单个元素的真实大小
                 let adaptiveSubW = round(adaptiveStrSize.width + subInset.left + subInset.right)
                 let adaptiveSubH = round(adaptiveStrSize.height + subInset.top + subInset.bottom)
                 
                 // 单个元素临时frame
-                let adaptiveSubTempRect = CGRectMake(adaptiveSubX, adaptiveSubY, adaptiveSubW, adaptiveSubH)
+                let adaptiveSubTempRect = CGRect(x: adaptiveSubX, y: adaptiveSubY, width: adaptiveSubW, height: adaptiveSubH)
                 
                 // 检查宽度是否超过最大范围
-                if CGRectGetMaxX(adaptiveSubTempRect) > maxWidth {
+                if adaptiveSubTempRect.maxX > maxWidth {
                     adaptiveSubX = inset.left
-                    adaptiveSubY = CGRectGetMaxY(lastFrame) + subSpaceH
+                    adaptiveSubY = lastFrame.maxY + subSpaceH
                 }
                 
                 // 单个元素frame
-                let adaptiveSubRect = CGRectMake(adaptiveSubX, adaptiveSubY, adaptiveSubW, adaptiveSubH)
+                let adaptiveSubRect = CGRect(x: adaptiveSubX, y: adaptiveSubY, width: adaptiveSubW, height: adaptiveSubH)
                 
                 // 刷新最新X lastFrame
-                adaptiveSubX = CGRectGetMaxX(adaptiveSubRect) + subSpaceW
+                adaptiveSubX = adaptiveSubRect.maxX + subSpaceW
                 lastFrame = adaptiveSubRect
                 
                 // 存储
@@ -111,7 +136,7 @@ class DZMAdaptive: NSObject {
             }
             
             // 获取总高度 最大的Y值
-            if !frames.isEmpty {maxH = CGRectGetMaxY(frames.last!) + inset.bottom}
+            if !frames.isEmpty {maxH = frames.last!.maxY + inset.bottom}
         }
     }
 }
