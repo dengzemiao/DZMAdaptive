@@ -35,7 +35,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 class DZMAdaptive: NSObject {
     
-    /* 说明: (语言版本: swift 2.2 ,支持环境: >=ios7) 先设置好属性  最后调用startAdaptive()方法开始计算  计算之后通过属性获取结果
+    /* 说明: (语言版本: swift 3.0 ,支持环境: >=ios7) 先设置好属性  最后调用startAdaptive()方法开始计算  计算之后通过属性获取结果
      
      富文本计算： 如果需要计算富文本 修改以下：
      1. adaptiveArray 改为AttributedString

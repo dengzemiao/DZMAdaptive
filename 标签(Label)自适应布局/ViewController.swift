@@ -66,7 +66,7 @@ class ViewController: UIViewController {
         // 子元素内部 文字离四周的间距
         adaptive.subInset = UIEdgeInsetsMake(10, 10, 10, 10)
         // 所有子元显示素控件 离父控件四周的间距
-        adaptive.inset = UIEdgeInsetsMake(60, 60, 10, 10)
+        adaptive.inset = UIEdgeInsetsMake(10, 10, 10, 10)
         // 计算字符串约束 （view总宽度 - 距离左右的间距 - 子元素控件内部左右间距 = 得到能够显示字体的实际宽度)
         adaptive.constrainedToSize = CGSize(width: UIScreen.main.bounds.size.width - adaptive.inset.left - adaptive.inset.right - adaptive.subInset.left - adaptive.subInset.right , height: CGFloat.greatestFiniteMagnitude)
         // 开始计算
